@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/TradeSuite.Api/TradeSuite.Api.csproj" />
+    <Project Path="src/TradeSuite.Application/TradeSuite.Application.csproj" />
+    <Project Path="src/TradeSuite.Domain/TradeSuite.Domain.csproj" />
+    <Project Path="src/TradeSuite.Infrastructure/TradeSuite.Infrastructure.csproj" />
+  </Folder>
+</Solution>

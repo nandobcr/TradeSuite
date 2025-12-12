@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>b345c15e-e0ce-4fb6-a547-2f3754e65992</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.11.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TradeSuite.Application\TradeSuite.Application.csproj" />
+    <ProjectReference Include="..\TradeSuite.Infrastructure\TradeSuite.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
