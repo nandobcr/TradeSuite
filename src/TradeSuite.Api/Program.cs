@@ -25,6 +25,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.MapSupplierEndpoints();
+app.MapClientEndpoints();
 app.UseHttpsRedirection();
 
 app.Run();

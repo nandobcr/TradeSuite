@@ -1,11 +1,11 @@
-using TradeSuite.Application.Suppliers.Dtos.Requests.Base;
+using TradeSuite.Application.Clients.Dtos.Requests.Base;
 
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 
-namespace TradeSuite.Application.Suppliers.Helpers;
+namespace TradeSuite.Application.Clients.Helpers;
 
-public static class SupplierValidator
+public static class ClientValidator
 {
     private static bool IsValidEmail(string email)
     {
@@ -27,12 +27,12 @@ public static class SupplierValidator
             return false;
         }
         
-        return name.Length <= SupplierConstants.NameMaxLength;
+        return name.Length <= ClientConstants.NameMaxLength;
     }
 
     private static bool IsValidPhoneNumber(string phoneNumber)
     {
-        if (phoneNumber.Length > SupplierConstants.PhoneMaxLength)
+        if (phoneNumber.Length > ClientConstants.PhoneMaxLength)
         {
             return false;
         }
@@ -44,31 +44,31 @@ public static class SupplierValidator
 
     private static bool IsValidAddress(string address)
     {
-        return address.Length <= SupplierConstants.AddressMaxLength;
+        return address.Length <= ClientConstants.AddressMaxLength;
     }
 
-    public static void ValidateSupplierRequestDto(BaseSupplierRequestDto supplierRequestDto)
+    public static void ValidateClientRequestDto(BaseClientRequestDto clientRequestDto)
     {
         IList<string> errors = [];
 
-        if (!IsValidEmail(supplierRequestDto.Email))
+        if (!IsValidEmail(clientRequestDto.Email))
         {
             errors.Add("Invalid email format.");
         }
 
-        if (!IsValidName(supplierRequestDto.Name))
+        if (!IsValidName(clientRequestDto.Name))
         {
-            errors.Add($"Name is required and must not exceed {SupplierConstants.NameMaxLength} characters.");
+            errors.Add($"Name is required and must not exceed {ClientConstants.NameMaxLength} characters.");
         }
         
-        if (!IsValidPhoneNumber(supplierRequestDto.Phone))
+        if (!IsValidPhoneNumber(clientRequestDto.Phone))
         {
             errors.Add("Invalid phone number format.");
         }
         
-        if (!IsValidAddress(supplierRequestDto.Address))
+        if (!IsValidAddress(clientRequestDto.Address))
         {
-            errors.Add($"Address must not exceed {SupplierConstants.AddressMaxLength} characters.");
+            errors.Add($"Address must not exceed {ClientConstants.AddressMaxLength} characters.");
         }
 
         if (errors.Any())
