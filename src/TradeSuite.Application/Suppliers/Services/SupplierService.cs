@@ -93,7 +93,6 @@ public class SupplierService(
         supplier.Address = !string.IsNullOrWhiteSpace(updateSupplierDto.Address) ? updateSupplierDto.Address : supplier.Address;
         supplier.Active = updateSupplierDto.Active;
         supplier.Email = updateSupplierDto.Email;
-        supplier.IsDeleted = updateSupplierDto.IsDeleted;
         supplier.Name = updateSupplierDto.Name;
         supplier.Phone = !string.IsNullOrWhiteSpace(updateSupplierDto.Phone) ? updateSupplierDto.Phone : supplier.Phone;
         supplier.UpdatedAt = dateTimeProvider.UtcNow;

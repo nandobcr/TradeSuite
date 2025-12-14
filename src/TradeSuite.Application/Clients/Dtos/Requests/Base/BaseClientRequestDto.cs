@@ -1,6 +1,6 @@
-namespace TradeSuite.Application.Suppliers.Dtos.Requests.BaseRequests;
+namespace TradeSuite.Application.Clients.Dtos.Requests.Base;
 
-public class BaseSupplierRequestDto
+public class BaseClientRequestDto
 {
     public string Address { get; set; } = string.Empty;
 
