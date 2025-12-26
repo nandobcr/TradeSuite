@@ -4,11 +4,11 @@ public class UpdateClientResponseDto
 {
     public Guid Id { get; set; }
 
-    public bool Active { get; set; }
-
     public string Address { get; set; } = string.Empty;
-    
+
     public required string Email { get; set; }
+    
+    public bool IsActive { get; set; }
     
     public bool IsDeleted { get; set; }
     

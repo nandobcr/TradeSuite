@@ -8,18 +8,18 @@ namespace TradeSuite.Domain.Entities.Base;
 public abstract class BaseEntity(IDateTimeProvider dateTimeProvider)
 {
     [BsonId]
-    [BsonRepresentation(BsonType.String)]
+    [BsonRepresentation(BsonType.String)] 
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    public bool Active { get; set; } = true;
-
     public DateTime CreatedAt { get; set; } = dateTimeProvider.UtcNow;
-
-    public bool IsDeleted { get; set; }
 
     public DateTime? DeletedAt { get; set; }
 
     public string? DeletedBy { get; set; }
+
+    public bool IsActive { get; set; } = true;
+
+    public bool IsDeleted { get; set; }
 
     public DateTime? UpdatedAt { get; set; } = null;
 
@@ -28,6 +28,6 @@ public abstract class BaseEntity(IDateTimeProvider dateTimeProvider)
         IsDeleted = true;
         DeletedAt = dateTimeProvider.UtcNow;
         DeletedBy = user;
-        Active = false;
+        IsActive = false;
     }
 }

@@ -57,9 +57,9 @@ public class SupplierService(
         return [.. suppliers.Select(supplier => new SupplierResponseDto
         {
             Id = supplier.Id,
-            Active = supplier.Active,
             Address = supplier.Address,
             Email = supplier.Email,
+            IsActive = supplier.IsActive,
             IsDeleted = supplier.IsDeleted,
             Name = supplier.Name,
             Phone = supplier.Phone
@@ -74,9 +74,9 @@ public class SupplierService(
         return new SupplierResponseDto
         {
             Id = supplier.Id,
-            Active = supplier.Active,
             Address = supplier.Address,
             Email = supplier.Email,
+            IsActive = supplier.IsActive,
             IsDeleted = supplier.IsDeleted,
             Name = supplier.Name,
             Phone = supplier.Phone
@@ -91,8 +91,8 @@ public class SupplierService(
             ?? throw new KeyNotFoundException($"Supplier with ID {supplierId} not found.");
 
         supplier.Address = !string.IsNullOrWhiteSpace(updateSupplierDto.Address) ? updateSupplierDto.Address : supplier.Address;
-        supplier.Active = updateSupplierDto.Active;
         supplier.Email = updateSupplierDto.Email;
+        supplier.IsActive = updateSupplierDto.IsActive;
         supplier.Name = updateSupplierDto.Name;
         supplier.Phone = !string.IsNullOrWhiteSpace(updateSupplierDto.Phone) ? updateSupplierDto.Phone : supplier.Phone;
         supplier.UpdatedAt = dateTimeProvider.UtcNow;
@@ -106,9 +106,9 @@ public class SupplierService(
         return new UpdateSupplierResponseDto
         {
             Id = supplier.Id,
-            Active = supplier.Active,
             Address = supplier.Address,
             Email = supplier.Email,
+            IsActive = supplier.IsActive,
             IsDeleted = supplier.IsDeleted,
             Name = supplier.Name,
             Phone = supplier.Phone

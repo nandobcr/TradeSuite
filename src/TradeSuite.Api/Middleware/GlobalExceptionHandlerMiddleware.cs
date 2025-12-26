@@ -14,6 +14,10 @@ public class GlobalExceptionHandlerMiddleware : IMiddleware
         {
             await HandleExceptionAsync(context, ex, ex.Message, StatusCodes.Status400BadRequest);
         }
+        catch (FileNotFoundException ex)
+        {
+            await HandleExceptionAsync(context, ex, ex.Message, StatusCodes.Status400BadRequest);
+        }
         catch (KeyNotFoundException ex)
         {
             await HandleExceptionAsync(context, ex, ex.Message, StatusCodes.Status404NotFound);
