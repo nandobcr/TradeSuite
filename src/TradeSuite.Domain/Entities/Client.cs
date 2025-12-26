@@ -5,11 +5,11 @@ namespace TradeSuite.Domain.Entities;
 
 public class Client(IDateTimeProvider dateTimeProvider) : BaseEntity(dateTimeProvider)
 {
-    public string Name { get; set; } = string.Empty;
-
-    public string Email { get; set; } = string.Empty;
-
     public string Address { get; set; } = string.Empty;
+
+    public required string Email { get; set; }
+    
+    public required string Name { get; set; }
 
     public string Phone { get; set; } = string.Empty;
 }

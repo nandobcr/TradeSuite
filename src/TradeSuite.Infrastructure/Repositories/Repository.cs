@@ -27,34 +27,39 @@ public class Repository<T>(MongoDbContext dbContext) : IRepository<T> where T : 
 
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        FilterDefinition<T> filter = Builders<T>.Filter.Eq("Id", id);
+        FilterDefinition<T> filter = Builders<T>.Filter.Eq(x => x.Id, id);
 
         await _collection.DeleteOneAsync(filter, cancellationToken);
     }
 
     public async Task<IList<T>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        FilterDefinition<T> filter = Builders<T>.Filter.Eq("Active", true) &
-            Builders<T>.Filter.Eq("IsDeleted", false);
+        FilterDefinition<T> filter = Builders<T>.Filter.Eq(x => x.IsActive, true) &
+            Builders<T>.Filter.Eq(x => x.IsDeleted, false);
 
         return await _collection.Find(filter).ToListAsync(cancellationToken);
     }
 
+    public async Task<T?> GetByFilterAsync(FilterDefinition<T> filter, CancellationToken cancellationToken = default)
+    {
+        return await _collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
+    }
+
     public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        FilterDefinition<T> filter = Builders<T>.Filter.Eq("Id", id) &
-            Builders<T>.Filter.Eq("Active", true) &
-            Builders<T>.Filter.Eq("IsDeleted", false);
+        FilterDefinition<T> filter = Builders<T>.Filter.Eq(x => x.Id, id) &
+            Builders<T>.Filter.Eq(x => x.IsActive, true) &
+            Builders<T>.Filter.Eq(x => x.IsDeleted, false);
 
         return await _collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
     }
 
     public async Task<T?> SoftDeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var filter = Builders<T>.Filter.Eq("Id", id);
+        var filter = Builders<T>.Filter.Eq(x => x.Id, id);
         var update = Builders<T>.Update
-            .Set("Active", false)
-            .Set("IsDeleted", true);
+            .Set(x => x.IsActive, false)
+            .Set(x => x.IsDeleted, true);
 
         var options = new FindOneAndUpdateOptions<T, T>
         {
@@ -74,7 +79,7 @@ public class Repository<T>(MongoDbContext dbContext) : IRepository<T> where T : 
         }
 
         Guid id = (Guid)idProperty.GetValue(entity)!;
-        FilterDefinition<T> filter = Builders<T>.Filter.Eq("Id", id);
+        FilterDefinition<T> filter = Builders<T>.Filter.Eq(x => x.Id, id);
 
         ReplaceOneResult replaceOneResult = await _collection.ReplaceOneAsync(filter, entity, cancellationToken: cancellationToken);
 

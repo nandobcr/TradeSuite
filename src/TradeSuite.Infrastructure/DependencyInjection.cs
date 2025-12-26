@@ -4,6 +4,8 @@ using TradeSuite.Application.Common.Repositories.Interfaces;
 using TradeSuite.Application.Common.Services.Interfaces;
 using TradeSuite.Application.Suppliers.Interfaces;
 using TradeSuite.Application.Suppliers.Services;
+using TradeSuite.Application.SupplierParts.Interfaces;
+using TradeSuite.Application.SupplierParts.Services;
 using TradeSuite.Infrastructure.Configs;
 using TradeSuite.Infrastructure.Database;
 using TradeSuite.Infrastructure.Repositories;
@@ -31,8 +33,10 @@ public static class DependencyInjection
 
         services.AddSingleton<MongoDbContext>();
         
-        services.AddScoped<ISupplierService, SupplierService>();
         services.AddScoped<IClientService, ClientService>();
+        services.AddScoped<ISupplierService, SupplierService>();
+        services.AddScoped<ISupplierPartService, SupplierPartService>();
+        services.AddScoped<IFileImportService, SupplierPartImportService>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped(typeof(IAuditRepository<>), typeof(AuditRepository<>));
         services.AddScoped(typeof(IAuditService<>), typeof(AuditService<>));

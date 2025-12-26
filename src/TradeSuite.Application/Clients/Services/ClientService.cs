@@ -57,8 +57,8 @@ public class ClientService(
         return [.. clients.Select(client => new ClientResponseDto
         {
             Id = client.Id,
-            Active = client.Active,
             Address = client.Address,
+            IsActive = client.IsActive,
             Email = client.Email,
             Name = client.Name,
             Phone = client.Phone
@@ -73,9 +73,9 @@ public class ClientService(
         return new ClientResponseDto
         {
             Id = client.Id,
-            Active = client.Active,
             Address = client.Address,
             Email = client.Email,
+            IsActive = client.IsActive,
             IsDeleted = client.IsDeleted,
             Name = client.Name,
             Phone = client.Phone
@@ -90,8 +90,8 @@ public class ClientService(
             ?? throw new KeyNotFoundException($"Client with ID {clientId} not found.");
 
         client.Address = !string.IsNullOrWhiteSpace(updateClientDto.Address) ? updateClientDto.Address : client.Address;
-        client.Active = updateClientDto.Active;
         client.Email = updateClientDto.Email;
+        client.IsActive = updateClientDto.IsActive;
         client.Name = updateClientDto.Name;
         client.Phone = !string.IsNullOrWhiteSpace(updateClientDto.Phone) ? updateClientDto.Phone : client.Phone;
         client.UpdatedAt = dateTimeProvider.UtcNow;
@@ -105,9 +105,9 @@ public class ClientService(
         return new UpdateClientResponseDto
         {
             Id = clientId,
-            Active = client.Active,
             Address = client.Address,
             Email = client.Email,
+            IsActive = client.IsActive,
             IsDeleted = client.IsDeleted,
             Name = client.Name,
             Phone = client.Phone
