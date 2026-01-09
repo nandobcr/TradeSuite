@@ -4,9 +4,9 @@ using TradeSuite.Application.Clients.Interfaces;
 
 namespace TradeSuite.Api.Endpoints;
 
-public static class ClientEndpoints
+public static class ClientsEndpoints
 {
-    public static RouteGroupBuilder MapClientEndpoints(this IEndpointRouteBuilder endpoints)
+    public static RouteGroupBuilder MapClientsEndpoints(this IEndpointRouteBuilder endpoints)
     {
         var group = endpoints.MapGroup("api/clients").WithTags("Clients");
 

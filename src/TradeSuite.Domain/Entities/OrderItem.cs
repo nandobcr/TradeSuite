@@ -1,11 +1,15 @@
 using TradeSuite.Domain.Common.Interfaces;
 using TradeSuite.Domain.Entities.Base;
 
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace TradeSuite.Domain.Entities;
 
 public class OrderItem(IDateTimeProvider dateTimeProvider) : BaseEntity(dateTimeProvider)
 {
-    public string SupplierPartId { get; set; } = string.Empty;
+    [BsonRepresentation(BsonType.String)]
+    public Guid SupplierPartId { get; set; }
 
     public int Quantity { get; set; } = 0;
 

@@ -5,9 +5,9 @@ using TradeSuite.Application.SupplierParts.Interfaces;
 
 namespace TradeSuite.Api.Endpoints;
 
-public static class SupplierPartEndpoints
+public static class SupplierPartsEndpoints
 {
-    public static RouteGroupBuilder MapSupplierPartEndpoints(this IEndpointRouteBuilder endpoints)
+    public static RouteGroupBuilder MapSupplierPartsEndpoints(this IEndpointRouteBuilder endpoints)
     {
         var group = endpoints.MapGroup("api/supplier-parts").WithTags("SupplierParts");
 

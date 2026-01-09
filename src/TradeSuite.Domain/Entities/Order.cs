@@ -2,12 +2,16 @@ using TradeSuite.Domain.Common.Enums;
 using TradeSuite.Domain.Common.Interfaces;
 using TradeSuite.Domain.Entities.Base;
 
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace TradeSuite.Domain.Entities;
 
 public class Order(IDateTimeProvider dateTimeProvider) : BaseEntity(dateTimeProvider)
 {
-    public string ClientId { get; set; } = string.Empty;
-
+    [BsonRepresentation(BsonType.String)]
+    public Guid ClientId { get; set; }
+    
     public IList<OrderItem> Items { get; set; } = [];
 
     public decimal TotalAmount => Items.Sum(item => item.TotalPrice);
