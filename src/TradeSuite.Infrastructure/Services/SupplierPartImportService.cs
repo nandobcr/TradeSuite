@@ -1,3 +1,4 @@
+using TradeSuite.Application.Common.Helpers;
 using TradeSuite.Application.Common.Repositories.Interfaces;
 using TradeSuite.Application.Common.Services.Interfaces;
 using TradeSuite.Application.SupplierParts.Dtos.Requests;
@@ -7,18 +8,14 @@ using TradeSuite.Domain.Entities;
 using ClosedXML.Excel;
 
 using Microsoft.AspNetCore.Http;
-
 using MongoDB.Driver;
-using TradeSuite.Application.Common.Helpers;
 
 namespace TradeSuite.Infrastructure.Services;
 
 public class SupplierPartImportService(
-    IRepository<SupplierPart> supplierPartRepository,
-    ISupplierPartService supplierPartService) : IFileImportService
+    ISupplierPartService supplierPartService,
+    IRepository<SupplierPart> supplierPartRepository) : IFileImportService
 {
-    private static readonly string[] _allowedExtensions = [".xls", ".xlsx", ".csv"];
-
     public async Task ImportAsync(Guid id, IFormFile formFile)
     {
         FileImportValidator.ValidateFile(formFile);
@@ -32,12 +29,14 @@ public class SupplierPartImportService(
             string description = row.Cell(1).GetString();
             string reference = row.Cell(2).GetString();
 
-            FilterDefinition<SupplierPart> filter = Builders<SupplierPart>.Filter.Eq("Reference", reference) &
-                Builders<SupplierPart>.Filter.Eq("SupplierId", id);
+            FilterDefinition<SupplierPart> filter = Builders<SupplierPart>.Filter.Eq(x => x.Reference, reference) &
+                Builders<SupplierPart>.Filter.Eq(x => x.SupplierId, id) &
+                Builders<SupplierPart>.Filter.Eq(x => x.IsActive, true) &
+                Builders<SupplierPart>.Filter.Eq(x => x.IsDeleted, false);
 
             SupplierPart? existingSupplierPart = await supplierPartRepository.GetByFilterAsync(filter);
 
-            if (existingSupplierPart != null)
+            if (existingSupplierPart is not null)
             {
                 var updateSupplierPartRequestDto = new UpdateSupplierPartRequestDto
                 {

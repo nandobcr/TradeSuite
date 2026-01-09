@@ -24,9 +24,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
-app.MapClientEndpoints();
-app.MapSupplierEndpoints();
-app.MapSupplierPartEndpoints();
+app.MapClientsEndpoints();
+app.MapSuppliersEndpoints();
+app.MapSupplierPartsEndpoints();
+app.MapSupplierPriceListItemsEndpoints();
 app.UseHttpsRedirection();
 
 app.Run();

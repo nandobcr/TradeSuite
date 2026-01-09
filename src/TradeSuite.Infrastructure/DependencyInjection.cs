@@ -6,6 +6,8 @@ using TradeSuite.Application.Suppliers.Interfaces;
 using TradeSuite.Application.Suppliers.Services;
 using TradeSuite.Application.SupplierParts.Interfaces;
 using TradeSuite.Application.SupplierParts.Services;
+using TradeSuite.Application.SupplierPriceListItems.Interfaces;
+using TradeSuite.Application.SupplierPriceListItems.Services;
 using TradeSuite.Infrastructure.Configs;
 using TradeSuite.Infrastructure.Database;
 using TradeSuite.Infrastructure.Repositories;
@@ -36,7 +38,9 @@ public static class DependencyInjection
         services.AddScoped<IClientService, ClientService>();
         services.AddScoped<ISupplierService, SupplierService>();
         services.AddScoped<ISupplierPartService, SupplierPartService>();
+        services.AddScoped<ISupplierPriceListItemService, SupplierPriceListItemService>();
         services.AddScoped<IFileImportService, SupplierPartImportService>();
+        services.AddScoped<IFileImportService, SupplierPriceListItemImportService>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped(typeof(IAuditRepository<>), typeof(AuditRepository<>));
         services.AddScoped(typeof(IAuditService<>), typeof(AuditService<>));

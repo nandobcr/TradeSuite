@@ -4,9 +4,9 @@ using TradeSuite.Application.Suppliers.Interfaces;
 
 namespace TradeSuite.Api.Endpoints;
 
-public static class SupplierEndpoints
+public static class SuppliersEndpoints
 {
-    public static RouteGroupBuilder MapSupplierEndpoints(this IEndpointRouteBuilder endpoints)
+    public static RouteGroupBuilder MapSuppliersEndpoints(this IEndpointRouteBuilder endpoints)
     {
         var group = endpoints.MapGroup("api/suppliers").WithTags("Suppliers");
 
