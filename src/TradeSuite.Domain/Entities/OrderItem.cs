@@ -1,4 +1,3 @@
-using TradeSuite.Domain.Common.Interfaces;
 using TradeSuite.Domain.Entities.Base;
 
 using MongoDB.Bson;
@@ -6,18 +5,24 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace TradeSuite.Domain.Entities;
 
-public class OrderItem(IDateTimeProvider dateTimeProvider) : BaseEntity(dateTimeProvider)
+public class OrderItem(DateTime utcNow) : BaseEntity(utcNow)
 {
-    [BsonRepresentation(BsonType.String)]
-    public Guid SupplierPartId { get; set; }
+    public DateTime ExpectedDeliveryDate { get; set; }
 
     public int Quantity { get; set; } = 0;
 
-    public decimal UnitPrice { get; set; } = 0m;
+    public required string Reference { get; set; }
+    
+    public DateTime RequestDate { get; set; } = utcNow;
 
-    public decimal TotalPrice => UnitPrice > 0 ? UnitPrice * Quantity : UnitPrice;
+    [BsonRepresentation(BsonType.String)]
+    public Guid SupplierPartId { get; set; }
 
-    public DateTime RequestDate { get; set; } = dateTimeProvider.UtcNow;
+    public decimal TotalCost { get; set; }
 
-    public DateTime ExpectedDeliveryDate { get; set; }
+    public decimal TotalSale { get; set; }
+
+    public decimal UnitCost { get; set; } = 0m;
+
+    public decimal UnitSale { get; set; } = 0m;
 }

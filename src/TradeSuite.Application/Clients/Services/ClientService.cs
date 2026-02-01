@@ -19,9 +19,10 @@ public class ClientService(
     {
         ClientValidator.ValidateClientRequestDto(createClientRequestDto);
 
-        Client client = new(dateTimeProvider)
+        Client client = new(dateTimeProvider.UtcNow)
         {
             Address = createClientRequestDto.Address,
+            CreatedBy = "user logado",
             Email = createClientRequestDto.Email,
             Name = createClientRequestDto.Name,
             Phone = createClientRequestDto.Phone

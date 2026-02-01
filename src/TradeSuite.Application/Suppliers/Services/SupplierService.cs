@@ -19,9 +19,10 @@ public class SupplierService(
     {
         SupplierValidator.ValidateSupplierRequestDto(createSupplierRequestDto);
 
-        Supplier supplier = new(dateTimeProvider)
+        Supplier supplier = new(dateTimeProvider.UtcNow)
         {
             Address = createSupplierRequestDto.Address,
+            CreatedBy = "user logado",
             Email = createSupplierRequestDto.Email,
             Name = createSupplierRequestDto.Name,
             Phone = createSupplierRequestDto.Phone

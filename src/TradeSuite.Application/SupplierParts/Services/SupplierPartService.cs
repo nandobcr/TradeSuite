@@ -18,10 +18,12 @@ public class SupplierPartService(
 {
     public async Task<CreateSupplierPartResponseDto> CreateSupplierPartAsync(CreateSupplierPartRequestDto createSupplierPartRequestDto)
     {
-        await SupplierPartValidator.ValidateSupplierPartRequestDtoAsync(createSupplierPartRequestDto, supplierRepository);
+        Supplier? supplier = await supplierRepository.GetByIdAsync(createSupplierPartRequestDto.SupplierId);
+        SupplierPartValidator.ValidateSupplierPartRequestDto(supplier, createSupplierPartRequestDto);
 
-        SupplierPart supplierPart = new(dateTimeProvider)
+        SupplierPart supplierPart = new(dateTimeProvider.UtcNow)
         {
+            CreatedBy = "user logado",
             Description = createSupplierPartRequestDto.Description,
             Reference = createSupplierPartRequestDto.Reference,
             SupplierId = createSupplierPartRequestDto.SupplierId
@@ -83,7 +85,8 @@ public class SupplierPartService(
 
     public async Task<UpdateSupplierPartResponseDto> UpdateSupplierPartAsync(Guid supplierPartId, UpdateSupplierPartRequestDto updateSupplierPartDto)
     {
-        await SupplierPartValidator.ValidateSupplierPartRequestDtoAsync(updateSupplierPartDto, supplierRepository);
+        Supplier? supplier = await supplierRepository.GetByIdAsync(updateSupplierPartDto.SupplierId);
+        SupplierPartValidator.ValidateSupplierPartRequestDto(supplier, updateSupplierPartDto);
 
         SupplierPart? supplierPart = await supplierPartRepository.GetByIdAsync(supplierPartId)
             ?? throw new KeyNotFoundException($"Supplier part with ID {supplierPartId} not found.");

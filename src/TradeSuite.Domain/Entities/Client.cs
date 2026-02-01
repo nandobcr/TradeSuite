@@ -1,9 +1,8 @@
-using TradeSuite.Domain.Common.Interfaces;
 using TradeSuite.Domain.Entities.Base;
 
 namespace TradeSuite.Domain.Entities;
 
-public class Client(IDateTimeProvider dateTimeProvider) : BaseEntity(dateTimeProvider)
+public class Client(DateTime utcNow) : BaseEntity(utcNow)
 {
     public string Address { get; set; } = string.Empty;
 
