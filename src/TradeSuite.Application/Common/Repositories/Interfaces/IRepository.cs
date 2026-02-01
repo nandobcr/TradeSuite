@@ -14,6 +14,8 @@ public interface IRepository<T> where T : BaseEntity
 
     Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
+    Task<IList<T>> GetManyByFilterAsync(FilterDefinition<T> filter, CancellationToken cancellationToken = default);
+
     Task<T?> SoftDeleteAsync(Guid id, CancellationToken cancellationToken = default);
 
     Task<bool> UpdateAsync(T entity, CancellationToken cancellationToken = default);

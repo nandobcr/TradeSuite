@@ -21,7 +21,8 @@ public class SupplierPriceListItemService(
     public async Task<CreateSupplierPriceListItemResponseDto> CreateSupplierPriceListItemAsync(
         CreateSupplierPriceListItemRequestDto createSupplierPriceListItemRequestDto)
     {
-        await SupplierPriceListItemValidator.ValidateSupplierRequestDtoAsync(createSupplierPriceListItemRequestDto, supplierPartRepository);
+        SupplierPart? supplierPart = await supplierPartRepository.GetByIdAsync(createSupplierPriceListItemRequestDto.SupplierPartId);
+        SupplierPriceListItemValidator.ValidateSupplierPriceListItemRequestDto(supplierPart, createSupplierPriceListItemRequestDto);
 
         FilterDefinition<SupplierPriceListItem> filter =
             Builders<SupplierPriceListItem>.Filter.Eq(x => x.SupplierPartId, createSupplierPriceListItemRequestDto.SupplierPartId) &
@@ -42,9 +43,11 @@ public class SupplierPriceListItemService(
             await auditService.LogAsync(currentSupplierPriceListItem.Id, currentSupplierPriceListItem, OperationTypes.Update.ToString(), "user logado");
         }
 
-        SupplierPriceListItem supplierPriceListItem = new(dateTimeProvider)
+        SupplierPriceListItem supplierPriceListItem = new(dateTimeProvider.UtcNow)
         {
+            CreatedBy = "user logado",
             Currency = createSupplierPriceListItemRequestDto.Currency,
+            Reference = createSupplierPriceListItemRequestDto.Reference,
             SupplierPartId = createSupplierPriceListItemRequestDto.SupplierPartId,
             UnitPrice = createSupplierPriceListItemRequestDto.UnitPrice,
             ValidFrom = createSupplierPriceListItemRequestDto.ValidFrom,

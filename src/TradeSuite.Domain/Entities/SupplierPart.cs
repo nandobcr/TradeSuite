@@ -1,4 +1,3 @@
-using TradeSuite.Domain.Common.Interfaces;
 using TradeSuite.Domain.Entities.Base;
 
 using MongoDB.Bson;
@@ -6,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace TradeSuite.Domain.Entities;
 
-public class SupplierPart(IDateTimeProvider dateTimeProvider) : BaseEntity(dateTimeProvider)
+public class SupplierPart(DateTime utcNow) : BaseEntity(utcNow)
 {
     public string Description { get; set; } = string.Empty;
 

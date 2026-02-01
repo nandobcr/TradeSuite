@@ -54,6 +54,11 @@ public class Repository<T>(MongoDbContext dbContext) : IRepository<T> where T : 
         return await _collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
     }
 
+    public async Task<IList<T>> GetManyByFilterAsync(FilterDefinition<T> filter, CancellationToken cancellationToken = default)
+    {
+        return await _collection.Find(filter).ToListAsync(cancellationToken);
+    }
+
     public async Task<T?> SoftDeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var filter = Builders<T>.Filter.Eq(x => x.Id, id);
